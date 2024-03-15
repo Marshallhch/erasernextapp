@@ -15,7 +15,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { DialogClose } from '@radix-ui/react-dialog';
 
-function SideNavBottomSection({ onFileCreate }: any) {
+function SideNavBottomSection({ onFileCreate, totalFiles }: any) {
   const menuList = [
     {
       id: 1,
@@ -53,7 +53,7 @@ function SideNavBottomSection({ onFileCreate }: any) {
 
       {/* Add New File Button */}
       <Dialog>
-        <DialogTrigger className="w-full bg-blue-600 hover:bg-blue-700 justify-start mt-3 text-white text-[14px] py-2 px-4 text-start">
+        <DialogTrigger className="w-full bg-blue-600 hover:bg-blue-700 justify-start mt-3 text-white text-[14px] py-2 px-4 text-start rounded-md">
           {/* <Button className="w-full bg-blue-600 hover:bg-blue-700 justify-start mt-3"> */}
           New File
           {/* </Button> */}
@@ -74,7 +74,7 @@ function SideNavBottomSection({ onFileCreate }: any) {
               <Button
                 type="button"
                 className="bg-blue-600 hover:bg-blue-700"
-                disabled={!(fileInput.length > 0)}
+                disabled={!(fileInput.length > 3)}
                 onClick={() => onFileCreate(fileInput)}
               >
                 Create
@@ -86,12 +86,15 @@ function SideNavBottomSection({ onFileCreate }: any) {
 
       {/* Progress Bar */}
       <div className="h-4 w-full bg-gray-200 rounded-full mt-8">
-        <div className="h-4 w-[40%] bg-blue-600 rounded-full"></div>
+        <div
+          style={{ width: `${(totalFiles / 5) * 100}%` }}
+          className={`h-4 bg-blue-600 rounded-full`}
+        ></div>
       </div>
 
       <h2 className="text-[12px] mt-3">
         {' '}
-        <strong>1</strong> out of <strong>5</strong> files used
+        <strong>{totalFiles}</strong> out of <strong>5</strong> files used
       </h2>
       <h2 className="text-[12px] mt-1">
         Upgrade your plan for unlimited access.

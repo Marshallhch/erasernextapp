@@ -18,10 +18,11 @@ import { Button } from '@/components/ui/button';
 export interface TEAM {
   createBy: String;
   teamName: String;
+  teamId: String;
   _id: String;
 }
 
-function SideNavTopSection({ user }: any) {
+function SideNavTopSection({ user, setActiveTeamInfo }: any) {
   const menu = [
     {
       id: 1,
@@ -46,11 +47,15 @@ function SideNavTopSection({ user }: any) {
     user && getTeamList();
   }, [user]);
 
+  useEffect(() => {
+    activeTeam && setActiveTeamInfo(activeTeam);
+  }, [activeTeam]);
+
   const getTeamList = async () => {
     const result = await convex.query(api.teams.getTeam, {
       email: user?.email,
     });
-    console.log('teamList', result);
+    // console.log('teamList', result);
     setTeamList(result);
     setActiveTeam(result[0]);
   };
