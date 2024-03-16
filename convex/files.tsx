@@ -26,8 +26,21 @@ export const getFiles = query({
     const result = ctx.db
       .query('files')
       .filter((q) => q.eq(q.field('teamId'), args.teamId))
+      .order('desc')
       .collect();
 
+    return result;
+  },
+});
+
+export const updateDocument = mutation({
+  args: {
+    _id: v.id('files'),
+    document: v.string(),
+  },
+
+  handler: async (ctx, args) => {
+    const result = await ctx.db.patch(args._id, { document: args.document });
     return result;
   },
 });
