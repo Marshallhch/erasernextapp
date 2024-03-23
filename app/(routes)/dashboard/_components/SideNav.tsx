@@ -26,7 +26,7 @@ function SideNav() {
     createFile({
       fileName: fileName,
       teamId: activeTeam?._id,
-      createdBy: user?.email || 'default',
+      createdBy: user?.email,
       archive: false,
       document: '',
       whiteboard: '',
