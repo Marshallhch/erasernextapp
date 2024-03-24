@@ -23,9 +23,13 @@ function SideNav() {
 
   const onFileCreate = (fileName: string) => {
     // console.log(fileName);
+    if (!activeTeam?._id || !user?.email) {
+      toast('Failed to create file: missing team ID or user email');
+      return;
+    }
     createFile({
       fileName: fileName,
-      teamId: activeTeam?._id,
+      teamId: activeTeam?._id.toString(),
       createdBy: user?.email,
       archive: false,
       document: '',
@@ -44,8 +48,12 @@ function SideNav() {
   };
 
   const getFiles = async () => {
+    if (!activeTeam?._id || !user?.email) {
+      toast('Failed to create file: missing team ID or user email');
+      return;
+    }
     const result = await convex.query(api.files.getFiles, {
-      teamId: activeTeam?._id,
+      teamId: activeTeam?._id.toString(),
     });
     // console.log(result);
     setFileList_(result);
